@@ -48,6 +48,9 @@ const DataInitialize = () => {
 
   useEffect(() => {
     if (onAuth === false) {
+      setBusinessKey('')
+      setBusiness({})
+      sessionStorage.removeItem('currentCustomer')
       Cookies.remove('auth.token')
     }
   }, [onAuth])

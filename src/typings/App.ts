@@ -14,10 +14,10 @@ export type TResponseInitializePayload = {
   data: TBusiness
 }
 
-export type TOverlay = {
+export type SOverlay = {
   status?: boolean
 }
 
-export type TModalLogout = {
+export type SModalLogout = {
   status?: boolean
 }

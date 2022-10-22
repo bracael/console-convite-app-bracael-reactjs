@@ -16,9 +16,12 @@ import { TResponseInitializePayload } from 'typings/App'
 
 const fetchPerson: PromiseFn<TResponseInitializePayload> = async ({
   businessKey,
+  authToken,
   uid
 }) => {
-  const fetchUrl = `authorize?uid=${uid}&business=${businessKey}`
+  const consoleInitalize = `initialize_console?uid=${uid}&business=${businessKey}`
+  const consoleAuthorize = `authorize?uid=${uid}&business=${businessKey}`
+  const fetchUrl = authToken ? consoleAuthorize : consoleInitalize
   return await api.get(fetchUrl).then((data) => data.data)
 }
 
@@ -26,9 +29,12 @@ function FetchConnect() {
   const { businessKey } = InitializeContext()
   const { uid } = AuthContext()
 
+  const authToken = Cookies.get('auth.token')
+
   const { data, error } = useAsync({
     promiseFn: fetchPerson,
     businessKey,
+    authToken,
     uid
   })
 
@@ -40,8 +46,6 @@ function FetchConnect() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
-
-  console.log('data', data)
 
   if (error) return <div>{error.message}</div>
   if (data) return <App data={data.data} />

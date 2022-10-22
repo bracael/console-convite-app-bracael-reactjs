@@ -1,13 +1,38 @@
-// types and interfaces
-import type { AppProps } from 'typings/App'
+import { useState } from 'react'
 
-function App({ data }: AppProps) {
-  console.log('data', data)
+// contexts and others
+import AppProvider from 'contexts/App'
+
+// components JSX
+import ModalDefault from 'components/Modals/Default'
+import ModalLogout from 'components/Modals/Logout'
+import Routers from 'app/routes'
+
+// types and interfaces
+import type { AppProps, SModalLogout, SOverlay } from 'typings/App'
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const App = ({ data }: AppProps) => {
+  const [pushmenu, setPushmenu] = useState(false)
+  const [modalLogout, setModalLogout] = useState<SModalLogout>({})
+  const [overlay, setOverlay] = useState<SOverlay>({})
 
   return (
-    <div>
-      <span>App</span>
-    </div>
+    <AppProvider
+      {...{
+        pushmenu,
+        setPushmenu,
+        overlay,
+        setOverlay,
+        modalLogout,
+        setModalLogout
+      }}
+    >
+      <Routers />
+      <ModalDefault state={modalLogout} setState={setModalLogout}>
+        <ModalLogout />
+      </ModalDefault>
+    </AppProvider>
   )
 }
 

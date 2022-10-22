@@ -3,8 +3,9 @@ import { User } from 'firebase/auth'
 import { SBusiness } from 'components/QuickStart/types'
 
 // types and interfaces
-import { TModalLogout, TOverlay } from './App'
+import { SModalLogout, SOverlay } from './App'
 import { TOverload } from 'components/QuickStart/types'
+import { TGuests } from 'templates/Guests/types'
 
 export type WithChildren = { children: React.ReactNode }
 
@@ -12,6 +13,26 @@ export type ProviderAuth = WithChildren & AuthContextProps
 export type ProviderInitialize = WithChildren & ContextInitialize
 export type ProviderApp = WithChildren & ContextApp
 export type ProviderOverload = WithChildren & ContextOverload
+export type ProviderModal = WithChildren & ContextModal
+export type ProviderDataGuests = WithChildren & ContextDataGuests
+
+export type ContextModal = {
+  close: () => void
+}
+
+export interface ContextDataGuests {
+  defaultDataRef: React.MutableRefObject<TGuests>
+  currentData: TGuests
+  setCurrentData: Dispatch<SetStateAction<TGuests>>
+  selectedKeys: string[]
+  setSelectedKeys: Dispatch<SetStateAction<string[]>>
+  isSelectedAll: boolean
+  setIsSelectedAll: Dispatch<SetStateAction<boolean>>
+  totalToDelete: string[]
+  filterToDelete: string[]
+  totalKeys: string[]
+  isSameValue: boolean
+}
 
 interface AuthContextProps {
   isAuthenticated: boolean
@@ -30,14 +51,12 @@ export interface ContextInitialize {
 }
 
 export interface ContextApp {
-  isOpenNow: boolean
-  setIsOpenNow: Dispatch<SetStateAction<boolean>>
   pushmenu: boolean
   setPushmenu: Dispatch<SetStateAction<boolean>>
-  overlay: TOverlay
-  setOverlay: Dispatch<SetStateAction<TOverlay>>
-  modalLogout: TModalLogout
-  setModalLogout: Dispatch<SetStateAction<TModalLogout>>
+  overlay: SOverlay
+  setOverlay: Dispatch<SetStateAction<SOverlay>>
+  modalLogout: SModalLogout
+  setModalLogout: Dispatch<SetStateAction<SModalLogout>>
 }
 
 export interface ContextOverload {

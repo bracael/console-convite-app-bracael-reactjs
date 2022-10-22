@@ -14,8 +14,6 @@ const Choose = ({ data }: ChooseProps) => {
   const { setBusinessKey } = InitializeContext()
   const { setBusiness } = BusinessContext()
 
-  console.log(data)
-
   const handleSetBusiness = (current: THandleSetBusinessProps) => {
     setBusinessKey(current.id)
     setBusiness({

@@ -6,8 +6,6 @@ const ElementContext = createContext<ContextApp>(null!)
 
 export default function ElementProvider({
   children,
-  isOpenNow,
-  setIsOpenNow,
   pushmenu,
   setPushmenu,
   overlay,
@@ -18,8 +16,6 @@ export default function ElementProvider({
   return (
     <ElementContext.Provider
       value={{
-        isOpenNow,
-        setIsOpenNow,
         pushmenu,
         setPushmenu,
         overlay,
@@ -31,12 +27,6 @@ export default function ElementProvider({
       {children}
     </ElementContext.Provider>
   )
-}
-
-export function StatusContext() {
-  const context = useContext(ElementContext)
-  const { isOpenNow, setIsOpenNow } = context
-  return { isOpenNow, setIsOpenNow }
 }
 
 export function PushmenuContext() {
