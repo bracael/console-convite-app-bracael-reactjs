@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import { useHistory } from 'react-router-dom'
 
 // contexts and others
 import DataGuestsProvider from 'contexts/DataGuests'
@@ -27,12 +28,16 @@ import * as S from './styles'
 import { DataHomeProps, TGuestsKeys } from './types'
 
 const DataHome = ({ data }: DataHomeProps) => {
+  const history = useHistory()
+
   const { fetcUpdate, setFetcUpdate } = FetchUpdateContext()
+
+  const currentInvites = data.models
 
   const btnOptionsRef = useRef<HTMLButtonElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
-  const defaultDataRef = useRef(data)
-  const [currentData, setCurrentData] = useState(data)
+  const defaultDataRef = useRef(currentInvites)
+  const [currentData, setCurrentData] = useState(currentInvites)
   const [selectedKeys, setSelectedKeys] = useState<string[]>([])
   const [isSelectedAll, setIsSelectedAll] = useState(false)
   const [searchInput, setSearchInput] = useState('')
@@ -78,6 +83,11 @@ const DataHome = ({ data }: DataHomeProps) => {
         (data.name || '').toLowerCase().includes(value.toLowerCase())
       )
     )
+  }
+
+  // const handlerOptions = () => setModalOptions({ status: true })
+  const handlerCreate = () => {
+    history.push('/create')
   }
 
   useEffect(() => {
@@ -157,7 +167,7 @@ const DataHome = ({ data }: DataHomeProps) => {
                 variant="contained"
                 size="x-small"
                 value="Nova família"
-                // onClick={() => handlerCreate()}
+                onClick={() => handlerCreate()}
               >
                 <IconAdd size={16} />
               </Button>
@@ -169,7 +179,7 @@ const DataHome = ({ data }: DataHomeProps) => {
                 if (isEmpty) return <EmptyGuests />
                 else if (currentData.length) {
                   return Array.from(currentData, (current) => (
-                    <CardGuests key={current.id} />
+                    <CardGuests key={current.id} {...current} />
                   ))
                 } else return <EmptySearchGuests />
               })()}

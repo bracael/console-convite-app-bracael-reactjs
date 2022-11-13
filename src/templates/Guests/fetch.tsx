@@ -13,9 +13,8 @@ import Skeleton from './skeleton'
 import { TFetchPerson } from './types'
 
 const fetchPerson: PromiseFn<TFetchPerson> = async ({ business }) => {
-  const fetchUrl = `console_invites?business=${business}`
-  // return api.get(fetchUrl).then((data) => data.data)
-  return []
+  const fetchUrl = `pagination_invites?business=${business}`
+  return api.get(fetchUrl).then((data) => data.data)
 }
 
 function AsyncHome() {

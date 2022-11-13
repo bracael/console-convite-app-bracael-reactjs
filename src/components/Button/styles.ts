@@ -7,6 +7,8 @@ type ContentProps = {
   variant: NonNullable<ButtonProps['variant']>
   disabledColor?: boolean
   maxWidth?: string
+  currentColor?: string
+  isCustom: boolean
 }
 
 const modifiertsSize = {
@@ -57,16 +59,17 @@ const modifiertsVariant = {
     &:focus {
       box-shadow: ${disabled
         ? '0px 0px 4px 2px rgba(0, 0, 0, 0.05)'
-        : '0px 0px 4px 2px rgba(151, 200, 255)'};
+        : `0px 0px 4px 2px rgba(151, 200, 255)`};
     }
   `,
-  outlined: (disabled: boolean) => css`
-    color: ${disabled ? '' : '#0161cd'};
+  outlined: (disabled: boolean, currentColor?: string) => css`
+    color: ${disabled ? '' : currentColor || '#0161cd'};
 
-    border: 1px solid ${disabled ? '' : '#0161cd'};
+    border: 1px solid ${disabled ? '' : currentColor || '#0161cd'};
 
     &:hover {
-      border: 2px solid ${disabled ? '' : '#0161cd'};
+      box-shadow: inset 0 0 0 1px
+        ${disabled ? 'rgba(255, 255, 255, 0)' : currentColor || '#0161cd'};
     }
   `,
   simple: () => css`
@@ -83,7 +86,15 @@ const modifiersMaxWidth = {
 }
 
 export const Content = styled.button<ContentProps>`
-  ${({ theme, size, variant, disabledColor = false, maxWidth }) => css`
+  ${({
+    theme,
+    size,
+    variant,
+    disabledColor = false,
+    maxWidth,
+    isCustom,
+    currentColor
+  }) => css`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,7 +109,7 @@ export const Content = styled.button<ContentProps>`
     }
 
     ${modifiertsSize[size](maxWidth || '132px')}
-    ${modifiertsVariant[variant](disabledColor)}
+    ${!isCustom && modifiertsVariant[variant](disabledColor, currentColor)}
     ${maxWidth && modifiersMaxWidth.normal(maxWidth)}
   `}
 `

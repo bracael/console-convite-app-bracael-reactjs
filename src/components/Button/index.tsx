@@ -10,7 +10,9 @@ const Button = ({
   variant = 'normal',
   onClick,
   disabled = false,
-  maxWidth
+  maxWidth,
+  customColorStyled,
+  currentColor
 }: ButtonProps) => (
   <S.Content
     type={type}
@@ -19,6 +21,9 @@ const Button = ({
     disabledColor={disabled}
     onClick={() => onClick && onClick()}
     maxWidth={maxWidth}
+    {...(customColorStyled ? { as: customColorStyled } : {})}
+    isCustom={!!customColorStyled}
+    currentColor={currentColor}
   >
     {!!children && children}
     <S.Text>{value}</S.Text>

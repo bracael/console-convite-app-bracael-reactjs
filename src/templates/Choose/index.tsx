@@ -11,7 +11,7 @@ const Choose = () => {
 
   useEffect(() => {
     // FIXME: Metatags
-    document.title = `${title} - Code Coast`
+    document.title = `${title} - Bracael`
   }, [])
 
   return (
@@ -21,7 +21,7 @@ const Choose = () => {
       </S.Content>
       <S.Footer>
         <S.Credits>
-          <S.Named>© 2022 Code Coast</S.Named>
+          <S.Named>© 2022 Bracael</S.Named>
           <S.Copyright>Todos os direitos reservados</S.Copyright>
         </S.Credits>
       </S.Footer>

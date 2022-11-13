@@ -21,3 +21,12 @@ export type SOverlay = {
 export type SModalLogout = {
   status?: boolean
 }
+
+export type TInvite = {
+  name?: string
+  peoples?: {
+    id: string
+    name: string
+  }[]
+  expireIn?: string
+}

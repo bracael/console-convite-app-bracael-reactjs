@@ -3,7 +3,7 @@ import { User } from 'firebase/auth'
 import { SBusiness } from 'components/QuickStart/types'
 
 // types and interfaces
-import { SModalLogout, SOverlay } from './App'
+import { SModalLogout, SOverlay, TInvite } from './App'
 import { TOverload } from 'components/QuickStart/types'
 import { TGuests } from 'templates/Guests/types'
 
@@ -15,6 +15,7 @@ export type ProviderApp = WithChildren & ContextApp
 export type ProviderOverload = WithChildren & ContextOverload
 export type ProviderModal = WithChildren & ContextModal
 export type ProviderDataGuests = WithChildren & ContextDataGuests
+export type ProviderFamilyId = WithChildren & ContextFamilyId
 
 export type ContextModal = {
   close: () => void
@@ -62,4 +63,10 @@ export interface ContextApp {
 export interface ContextOverload {
   overload: TOverload
   setOverload: Dispatch<SetStateAction<TOverload>>
+}
+
+export interface ContextFamilyId {
+  data: TInvite
+  values: TInvite
+  setValues: Dispatch<SetStateAction<TInvite>>
 }

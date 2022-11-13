@@ -9,14 +9,24 @@ export type ContextGuests = {
   setFetcUpdate: Dispatch<SetStateAction<number>>
 }
 
-type TGuest = {
+export type TGuest = {
+  expireIn?: string
   id: string
   name: string
+  peoples: {
+    id: string
+    name: string
+  }[]
 }
 
 export type TGuests = TGuest[]
 
-export type TFetchPerson = TGuests
+export type TFetchPerson = {
+  total: number
+  models: TGuests
+  initial: number
+  ending: number
+}
 
 export type TGuestsKeys = (arr: TGuests) => string[]
 
